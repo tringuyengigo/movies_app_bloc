@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'scoped_models/AppModel.dart';
 import 'screens/HomeScreen.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Movies',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomeScreen(),
-    );
-  }
+  runApp(ScopedModel<AppModel>(
+      model: AppModel(sharedPreferences),
+      child: MaterialApp(
+          title: 'Movies',
+          theme: ThemeData.dark(),
+          home: HomeScreen(),
+        ),
+  ));
 }
 
 

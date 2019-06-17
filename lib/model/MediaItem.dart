@@ -1,4 +1,4 @@
-import 'package:movies_app_bloc/util/utils.dart';
+import 'package:movies_app_bloc/util/Utils.dart';
 
 class MediaItem {
   MediaType type;

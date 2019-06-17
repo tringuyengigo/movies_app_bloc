@@ -4,7 +4,7 @@ import 'package:movies_app_bloc/blocs/BlocProvider.dart';
 import 'package:movies_app_bloc/blocs/MovieBloc.dart';
 import 'package:movies_app_bloc/model/MediaItem.dart';
 import 'package:movies_app_bloc/screens/MediaScreen.dart';
-import 'package:movies_app_bloc/util/navigator.dart';
+import 'package:movies_app_bloc/util/Navigator.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

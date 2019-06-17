@@ -3,7 +3,8 @@ import 'package:movies_app_bloc/blocs/BlocProvider.dart';
 import 'package:movies_app_bloc/blocs/MovieBloc.dart';
 import 'package:movies_app_bloc/model/MediaFilters.dart';
 import 'package:movies_app_bloc/model/MediaItem.dart';
-import 'package:movies_app_bloc/util/utils.dart';
+import 'package:movies_app_bloc/util/Navigator.dart';
+import 'package:movies_app_bloc/util/Utils.dart';
 
 class MediaScreen extends StatelessWidget {
 
@@ -26,10 +27,6 @@ class MediaScreen extends StatelessWidget {
       category = category;
     }
     return Container(
-      height: 150.0,
-      width: 150.0,
-      // Horizontal list of all movies in the catalog
-      // based on the filters
       child: StreamBuilder<List<MediaItem>>(
 
           stream: movieBloc.outMoviesList,
@@ -45,38 +42,30 @@ class MediaScreen extends StatelessWidget {
               itemCount:
               (snapshot.data == null ? 0 : snapshot.data.length),
               itemBuilder: (BuildContext context, int index) {
-
-                print("PopularScreen MediaListItem snapshot.data.length " + snapshot.data.length.toString() );
-                print("PopularScreen build..................... " + index.toString());
-                for(int i = 0; i < snapshot.data.length; i++ ) {
-                  print("PopularScreen MediaListItem " + snapshot.data[i].toJson().toString());
-                }
                 if ( index > (snapshot.data.length * 0.7)) {
-                  print("PopularScreen build........ssss............. page" + page.toString());
-                  print("PopularScreenbuild........ssss............. " + index.toString());
                   page += 1;
                   MediaFilters data = MediaFilters(page, mediaType, category);
                   movieBloc.inFilters.add(data);
                 }
-                return MediaListItem(snapshot.data[index], index, movieBloc, snapshot.data.length);
+                return MediaListItem(snapshot.data[index], index, movieBloc, snapshot.data.length, mediaType);
               },
             );
           }),
     );
   }
-
 }
+
 class MediaListItem extends StatelessWidget {
 
   final MediaItem movie;
   final int index;
   final int length;
-  MediaListItem(this.movie, this.index, this._movieBloc, this.length);
   final MovieBloc _movieBloc;
-  
+  final String mediaType;
+  MediaListItem(this.movie, this.index, this._movieBloc, this.length, this.mediaType);
+
+
   Widget _getTitleSection(BuildContext context) {
-
-
 
     return Container(
       padding: const EdgeInsets.all(12.0),
@@ -161,7 +150,7 @@ class MediaListItem extends StatelessWidget {
 
     return Card(
       child: InkWell(
-//        onTap: () => goToMovieDetails(context, movie),
+        onTap: () => goToMovieDetails(context, movie, mediaType),
         child: Column(
           children: <Widget>[
             Hero(

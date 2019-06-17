@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app_bloc/model/MediaItem.dart';
+import 'package:movies_app_bloc/screens/MediaDetailScreen.dart';
 import 'package:movies_app_bloc/screens/SearchScreen.dart';
 
-//goToMovieDetails(BuildContext context, MediaItem movie) {
-//  MediaProvider provider =
-//      (movie.type == MediaType.movie) ? MovieProvider() : ShowProvider();
-//  _pushWidgetWithFade(context, MediaDetailScreen(movie, provider));
-//}
+goToMovieDetails(BuildContext context, MediaItem movie, String mediaType) {
+  _pushWidgetWithFade(context, MediaDetailScreen(movie, mediaType));
+}
 //
 //goToSeasonDetails(BuildContext context, MediaItem show, TvSeason season) =>
 //    _pushWidgetWithFade(context, SeasonDetailScreen(show, season));

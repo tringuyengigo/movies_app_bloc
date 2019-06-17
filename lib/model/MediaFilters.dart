@@ -4,8 +4,5 @@ class MediaFilters {
    String type;
    String category;
 
-  MediaFilters(
-    this.page,
-    this.type,
-    this.category);
+  MediaFilters(this.page, this.type, this.category);
 }

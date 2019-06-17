@@ -9,12 +9,11 @@ import 'package:movies_app_bloc/api/MediaApi.dart';
 
 class MovieBloc implements BlocBase {
   List<MediaItem> movies = [];
+  static String mediaTypeMain;
   ///
   /// We also want to handle changes to the filters
   ///
   BehaviorSubject<MediaFilters> _filtersController = BehaviorSubject<MediaFilters>(seedValue: MediaFilters( 1,  mediaTypeMain,  "popular"));
-
-  static String mediaTypeMain;
 
   MediaFilters filter;
   Sink<MediaFilters> get inFilters => _filtersController.sink;
