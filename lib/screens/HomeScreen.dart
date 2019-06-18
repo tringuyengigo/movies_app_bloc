@@ -69,7 +69,7 @@ class HomeScreenState extends State<HomeScreen> {
               ListTile(
                 title: Text("Favorites"),
                 trailing: Icon(Icons.favorite),
-//                onTap: () => goToFavorites(context),
+                onTap: () => goToFavorites(context),
               ),
               Divider(
                 height: 5.0,
