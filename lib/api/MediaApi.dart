@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:movies_app_bloc/model/Actor.dart';
+import 'package:movies_app_bloc/model/Episode.dart';
 import 'package:movies_app_bloc/model/MediaFiltersIDType.dart';
 import 'package:movies_app_bloc/model/MediaItem.dart';
 import 'package:movies_app_bloc/model/SearchResult.dart';
@@ -86,6 +87,37 @@ class MediaApi {
           .map<MediaItem>((item) => MediaItem(item, MediaType.show))
           .toList());
     }
+  }
+
+  Future<List<Episode>> fetchEpisodes(int showId, int seasonNumber) {
+    var url = Uri.https(baseUrl, '3/tv/$showId/season/$seasonNumber', {
+      'api_key': API_KEY,
+    });
+
+    return _getJson(url).then((json) => json['episodes']).then(
+            (data) => data.map<Episode>((item) => Episode.fromJson(item)).toList());
+  }
+
+  Future<List<MediaItem>> getMoviesForActor(int actorId) async {
+    var url = Uri.https(baseUrl, '3/discover/movie', {
+      'api_key': API_KEY,
+      'with_cast': actorId.toString(),
+      'sort_by': 'popularity.desc'
+    });
+
+    return _getJson(url).then((json) => json['results']).then((data) => data
+        .map<MediaItem>((item) => MediaItem(item, MediaType.movie))
+        .toList());
+  }
+
+  Future<List<MediaItem>> getShowsForActor(int actorId) async {
+    var url = Uri.https(baseUrl, '3/person/$actorId/tv_credits', {
+      'api_key': API_KEY,
+    });
+
+    return _getJson(url).then((json) => json['cast']).then((data) => data
+        .map<MediaItem>((item) => MediaItem(item, MediaType.show))
+        .toList());
   }
 
 }

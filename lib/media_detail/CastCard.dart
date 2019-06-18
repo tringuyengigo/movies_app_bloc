@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app_bloc/model/Actor.dart';
+import 'package:movies_app_bloc/util/Navigator.dart';
 import 'package:movies_app_bloc/util/Styles.dart';
 import 'package:movies_app_bloc/utilviews/BottomGradient.dart';
 
@@ -14,7 +15,7 @@ class CastCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-//      onTap: () => goToActorDetails(context, actor),
+      onTap: () => goToActorDetails(context, actor),
       child: Container(
         height: height,
         width: width,
